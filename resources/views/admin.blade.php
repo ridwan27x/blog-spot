@@ -76,8 +76,8 @@
                 <thead>
                     <tr>
                         <th>Nama</th>
-                        <th>Alamat</th>
-                        <th>Telp</th>
+                        <th>Email</th>
+                        <th>Password</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -85,8 +85,8 @@
                     @foreach ($users as $user)
                         <tr>
                             <td>{{ $user->name }}</td>
-                            <td>{{ $user->address }}</td>
-                            <td>{{ $user->phone }}</td>
+                            <td>{{ $user->email}}</td>
+                            <td>{{ $user->password }}</td>
                             <td>
                                 <a href="#" class="btn btn-sm btn-info">Edit</a>
                                 <a href="#" class="btn btn-sm btn-danger">Delete</a>
