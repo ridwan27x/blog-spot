@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Admin Dashboard</title>
+    <title>home</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         .sidebar {
@@ -50,7 +50,7 @@
                             <a class="nav-link" href="#">Users</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link active" href="{{ route('kategoriadmin') }}">Kategori</a>
+                            <a class="nav-link active" href="{{ route('kategoriadmin') }}">Kategori</a>
                             <ul class="list-unstyled pl-3">
                                 <li><a class="nav-link" href="#">Elektronik</a></li>
                                 <li><a class="nav-link" href="#">Televisi</a></li>
@@ -59,10 +59,10 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link active" href="{{ route('laporanadmin') }}">pembayaran</a>
+                            <a class="nav-link active" href="{{ route('laporanadmin') }}">pembayaran</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link active" href="{{ route('pembayaranadmin') }}">Laporan</a>
+                            <a class="nav-link active" href="{{ route('pembayaranadmin') }}">Laporan</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#" id="logout-link">Logout</a>
@@ -74,51 +74,53 @@
                     </form>
                 </div>
             </nav>
-
-            <!-- Konten Utama -->
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-                <h1 class="h2 mt-4">Data User</h1>
-                <button class="btn btn-primary mb-3">Tambah</button>
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Nama</th>
-                            <th>Email</th>
-                            <th>Password</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($users as $user)
-                        <tr>
-                            <td>{{ $user->name }}</td>
-                            <td>{{ $user->email}}</td>
-                            <td>{{ $user->password }}</td>
-                            <td>
-                                <a href="#" class="btn btn-sm btn-info">Edit</a>
-                                <a href="#" class="btn btn-sm btn-success">info</a>
-                                <a href="#" class="btn btn-sm btn-danger">Delete</a>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                <!-- Paginasi -->
-                <nav aria-label="Page navigation">
-                    <ul class="pagination justify-content-center">
-                        <li class="page-item"><a class="page-link" href="#">«</a></li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">»</a></li>
-                    </ul>
-                </nav>
+              
+                <div class="container mt-4">
+                    <div class="row">
+                       
+                        <div class="col-md-4">
+                            <div class="card mb-4">
+                                <img class="card-img-top" src="https://via.placeholder.com/150" alt="Card image cap">
+                                <div class="card-body">
+                                    <h5 class="card-title">Bagaimana Cara Membuat Blog? Ikuti 8 Langkah Mudah Ini</h5>
+                                    <p class="card-text">Cara membuat blog tidak sulit, bahkan orang yang tidak paham coding...</p>
+                                    <p class="text-muted">20 min read | May 12, 2024</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Card 2 -->
+                        <div class="col-md-4">
+                            <div class="card mb-4">
+                                <img class="card-img-top" src="https://via.placeholder.com/150" alt="Card image cap">
+                                <div class="card-body">
+                                    <h5 class="card-title">Cara Membuat Website di WordPress</h5>
+                                    <p class="card-text">Tutorial lengkap cara membuat website menggunakan WordPress...</p>
+                                    <p class="text-muted">7 min read | Nov 21, 2024</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Card 3 -->
+                        <div class="col-md-4">
+                            <div class="card mb-4">
+                                <img class="card-img-top" src="https://via.placeholder.com/150" alt="Card image cap">
+                                <div class="card-body">
+                                    <h5 class="card-title">Niagahoster Perkenalkan Brand Ambassador</h5>
+                                    <p class="card-text">Peter Kambey sebagai brand ambassador terbaru Niagahoster...</p>
+                                    <p class="text-muted">4 min read | Dec 22, 2024</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Footer -->
                 <footer class="text-center bg-dark text-white py-1 mt-5">
                     <p class="mb-5">Created by Iwan & Fajar © 2024</p>
                     <p class="mt-3">All rights reserved.</p>
                 </footer>
             </main>
+
         </div>
     </div>
     <script>
