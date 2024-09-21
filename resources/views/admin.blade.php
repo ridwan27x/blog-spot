@@ -7,11 +7,19 @@
     <title>Admin Dashboard</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        .sidebar {
+         .sidebar {
             height: 100vh;
             background-color: #007bff;
             color: white;
             padding-top: 20px;
+            position: fixed; 
+            top: 0; 
+            left: 0;
+            width: 15%; 
+        }
+
+        .main-content {
+            margin-left: 15%;
         }
 
         .sidebar a {
@@ -51,12 +59,6 @@
                         </li>
                         <li class="nav-item">
                         <a class="nav-link active" href="{{ route('kategoriadmin') }}">Kategori</a>
-                            <ul class="list-unstyled pl-3">
-                                <li><a class="nav-link" href="#">Elektronik</a></li>
-                                <li><a class="nav-link" href="#">Televisi</a></li>
-                                <li><a class="nav-link" href="#">Mesin Cuci</a></li>
-                                <li><a class="nav-link" href="#">Kendaraan</a></li>
-                            </ul>
                         </li>
                         <li class="nav-item">
                         <a class="nav-link active" href="{{ route('laporanadmin') }}">pembayaran</a>
