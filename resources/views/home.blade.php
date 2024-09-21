@@ -135,7 +135,7 @@
     </div>
     <div class="mx-auto position-relative">
         <i class="fas fa-search position-absolute" style="left: 25px; top: 50%; transform: translateY(-55%);"></i>
-        <input type="search" placeholder="Telusuri postingan" class="ml-3 pl-5" style="width: 580px;">
+        <input type="search" placeholder="Telusuri postingan" class="ml-3 pl-5" style="width: 590px;">
     </div>
     <div class="dropdown d-flex align-items-center position-relative">
         <i class="bi bi-google" style="font-size: 20px; margin-right: 10px; color: #db4437;" id="googleDropdown" style="cursor:pointer;"></i>
