@@ -114,10 +114,11 @@
                     </div>
                 </div>
 
+                
                 <!-- Footer -->
-                <footer class="text-center bg-dark text-white py-1 mt-5">
-                    <p class="mb-5">Created by Iwan & Fajar © 2024</p>
-                    <p class="mt-3">All rights reserved.</p>
+                <footer class="text-center bg-dark text-white py-2">
+                    <p class="mb-1">Created by Ridwan & Fajar © 2024</p>
+                    <p class="mb-0">All rights reserved.</p>
                 </footer>
             </main>
         </div>
