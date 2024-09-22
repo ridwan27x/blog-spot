@@ -139,7 +139,7 @@
         <input type="search" placeholder="Telusuri postingan" class="ml-3 pl-5" style="width: 590px;">
     </div>
     <div class="dropdown d-flex align-items-center position-relative">
-        <i class="bi bi-google" style="font-size: 20px; margin-right: 10px; color: #db4437;" id="googleDropdown" style="cursor:pointer;"></i>
+        <i class="bi bi-google" style="font-size: 20px; margin-right: 10px; color: #4d4d4d;" id="googleDropdown" style="cursor:pointer;"></i>
         <img src="https://via.placeholder.com/30" alt="Profile Image" class="rounded-circle">
         <!-- Tabel Google -->
         <div class="google-table" id="googleTable">
