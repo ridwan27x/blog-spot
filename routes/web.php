@@ -2,8 +2,8 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PostController;
 
 // Route untuk halaman home setelah login
 Route::get('/', function() {
@@ -30,5 +30,13 @@ Route::get('/adminhome', function () { return view('adminhome');})->name('adminh
 Route::get('/kategoriadmin', function () { return view('kategoriadmin');})->name('kategoriadmin');
 Route::get('/laporanadmin', function () { return view('laporanadmin');})->name('laporanadmin');
 Route::get('/pembayaranadmin', function () { return view('pembayaranadmin');})->name('pembayaranadmin');
+
+
+//posting dan users
+Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
+Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
+Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
+Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show');
+
 
 

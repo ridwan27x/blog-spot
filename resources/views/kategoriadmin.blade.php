@@ -7,11 +7,19 @@
     <title>Kategori</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        .sidebar {
+       .sidebar {
             height: 100vh;
             background-color: #007bff;
             color: white;
             padding-top: 20px;
+            position: fixed; 
+            top: 0; 
+            left: 0;
+            width: 15%; 
+        }
+
+        .main-content {
+            margin-left: 15%;
         }
 
         .sidebar a {
@@ -47,34 +55,48 @@
                             <a class="nav-link active" href="{{ route('adminhome') }}">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Users</a>
+                             <a class="nav-link active" href="{{ route('admin') }}">Users</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link active" href="{{ route('kategoriadmin') }}">Kategori</a>
-                            <ul class="list-unstyled pl-3">
-                                <li><a class="nav-link" href="#">Elektronik</a></li>
-                                <li><a class="nav-link" href="#">Televisi</a></li>
-                                <li><a class="nav-link" href="#">Mesin Cuci</a></li>
-                                <li><a class="nav-link" href="#">Kendaraan</a></li>
-                            </ul>
+                            <a class="nav-link active" href="{{ route('kategoriadmin') }}">Kategori</a>
+                            
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link active" href="{{ route('laporanadmin') }}">pembayaran</a>
+                            <a class="nav-link active" href="{{ route('laporanadmin') }}">Pembayaran</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link active" href="{{ route('pembayaranadmin') }}">Laporan</a>
+                            <a class="nav-link active" href="{{ route('pembayaranadmin') }}">Laporan</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#" id="logout-link">Logout</a>
                         </li>
-
                     </ul>
+
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                         @csrf
                     </form>
                 </div>
             </nav>
+
+            <!-- Main Content -->
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+                <div class="container mt-5">
+                    <h2 class="mb-4">Kategori Berita</h2>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <ul class="list-group">
+                                <li class="list-group-item"><a href="#">Politik</a></li>
+                                <li class="list-group-item"><a href="#">Pendidikan</a></li>
+                                <li class="list-group-item"><a href="#">Kesehatan</a></li>
+                                <li class="list-group-item"><a href="#">Olahraga</a></li>
+                                <li class="list-group-item"><a href="#">Ekonomi</a></li>
+                                <li class="list-group-item"><a href="#">Komedi</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
                 <footer class="text-center bg-dark text-white py-1 mt-5">
                     <p class="mb-5">Created by Iwan & Fajar © 2024</p>
                     <p class="mt-3">All rights reserved.</p>
@@ -82,6 +104,7 @@
             </main>
         </div>
     </div>
+
     <script>
         document.getElementById('logout-link').addEventListener('click', function(event) {
             event.preventDefault();

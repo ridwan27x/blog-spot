@@ -156,7 +156,7 @@
 
 <!-- Sidebar -->
 <div class="sidebar" id="sidebar">
-    <a href="#" class="shadow p-3 bg-body-tertiary rounded-pill text-decoration-none d-flex align-items-center text-danger">
+    <a href="{{ route('posts.create') }}" class="shadow p-3 bg-body-tertiary rounded-pill text-decoration-none d-flex align-items-center text-danger">
         <i class="bi bi-plus mr-2"></i> Postingan baru
     </a>
     <a href="#" class="d-flex align-items-center">
@@ -181,6 +181,34 @@
         <i class="bi bi-gear mr-2"></i> Setelan
     </a>
 </div>
+<div class="container">
+
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    <div class="row justify-content-center">
+    <div class="col-md-8"> 
+        @foreach ($posts as $post)
+            <div class="post mb-4 p-4 bg-light shadow-sm rounded">
+                <a href="{{ route('posts.show', $post->id) }}" class="text-dark text-decoration-none">
+                    <h3>{{ $post->title }}</h3>
+                    <p>{{ Str::limit($post->content, 100) }}</p> <!-- Menampilkan konten ringkasan, limit 100 karakter -->
+
+                    @if ($post->file_path)
+                        <p><a href="{{ asset('storage/' . $post->file_path) }}" target="_blank">Download File</a></p>
+                    @endif
+
+                    <small class="text-muted">Diterbitkan pada {{ $post->created_at->format('d M Y H:i') }}</small>
+                </a>
+            </div>
+        @endforeach
+    </div>
+</div>
+
+
 
 <script>
     // JavaScript untuk animasi buka/tutup sidebar
