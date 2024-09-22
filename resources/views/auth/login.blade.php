@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container d-flex justify-content-center " style="min-height: 100vh;">
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 70vh;">
     <div class="col-md-6">
         <div class="card shadow-lg border-0">
             <div class="card-header text-dark text-center">
@@ -67,13 +67,27 @@
     </div>
 </div>
 
+<!-- Copyright Section -->
+<div class="text-center bg-dark py-2 w-100 position-fixed bottom-0 left-0 right-0">
+    <small>&copy; 2024 Ridwan & Fajar. All rights reserved.</small>
+</div>
+
 <!-- Custom styling for the login page -->
 <style>
-    body {
-        background-color: #f0f2f5; /* Warna latar belakang halaman */
+    body, html {
+        height: 100%;
+        margin: 0;
+        overflow: hidden; /* Menghindari scrolling */
+    }
+    .container {
+        height: 100%; /* Pastikan container memenuhi tinggi halaman */
     }
     .card {
-        border-radius: 12px; /* Membuat sudut kartu lebih bulat */
+        border-radius: 12px; /* Membuat sudut kartu lebih bulat */  
+    }
+    .text-center small {
+        color: #ffffff; /* Warna teks copyright */
     }
 </style>
+
 @endsection
