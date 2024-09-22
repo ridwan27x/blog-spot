@@ -20,6 +20,8 @@
     </div>
     <a href="{{ route('home') }}" class="btn btn-secondary mt-3">
         <i class="bi bi-arrow-left"></i> Kembali ke Daftar Postingan
+        <i class="bi bi-arrow-left"></i> Kembali ke Daftar Postingan
+        <i>jhagshgashahsg</i>
     </a>
 </div>
 @endsection
