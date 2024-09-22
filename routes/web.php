@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PostController;
 
 // Route untuk halaman home setelah login
 Route::get('/', function() {
@@ -29,5 +30,9 @@ Route::get('/adminhome', function () { return view('adminhome');})->name('adminh
 Route::get('/kategoriadmin', function () { return view('kategoriadmin');})->name('kategoriadmin');
 Route::get('/laporanadmin', function () { return view('laporanadmin');})->name('laporanadmin');
 Route::get('/pembayaranadmin', function () { return view('pembayaranadmin');})->name('pembayaranadmin');
+
+
+
+
 
 

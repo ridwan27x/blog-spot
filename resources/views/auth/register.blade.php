@@ -32,14 +32,12 @@
                                class="form-control @error('email') is-invalid @enderror" 
                                name="email" value="{{ old('email') }}" required autocomplete="email"
                                placeholder="Masukkan alamat email Anda">
-
                         @error('email')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
                     </div>
-
                     <div class="mb-3">
                         <label for="password" class="form-label">{{ __('Password') }}</label>
                         <input id="password" type="password" 
@@ -54,12 +52,18 @@
                         @enderror
                     </div>
 
+<<<<<<< HEAD
+                        <div class="form-group row">
+                        <div class="row mb-3">
+                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+=======
                     <div class="mb-3">
                         <label for="password-confirm" class="form-label">{{ __('Confirm Password') }}</label>
                         <input id="password-confirm" type="password" 
                                class="form-control" name="password_confirmation" required 
                                autocomplete="new-password" placeholder="Konfirmasi password Anda">
                     </div>
+>>>>>>> 301ae825b56f752d7eb7d40372ec0b61d2670769
 
                     <div class="d-flex justify-content-between align-items-center">
                         <button type="submit" class="btn btn-success w-100 py-2">
@@ -67,6 +71,34 @@
                         </button>
                     </div>
 
+<<<<<<< HEAD
+                                @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                    
+                            <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-0">
+                        <div class="row mb-0">
+                            <div class="col-md-6 offset-md-4">
+                                <button type="submit" class="btn btn-primary">
+                                    {{ __('Register') }}
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+=======
                     <div class="mt-3 text-center">
                         @if (Route::has('password.request'))
                             <a class="text-primary" href="{{ route('password.request') }}">
@@ -76,6 +108,7 @@
                     </div>
                     
                 </form>
+>>>>>>> 301ae825b56f752d7eb7d40372ec0b61d2670769
             </div>
         </div>
     </div>
@@ -86,12 +119,6 @@
     <small>&copy; 2024 Ridwan & Fajar. All rights reserved.</small>
 </div>
 
-<style>
-    body, html {
-        height: 100%;
-        margin: 0;
-        overflow: hidden; /* Menghindari scrolling */
-    }
 <style>
     body {
         background-color: #f0f2f5; /* Sama dengan warna latar belakang halaman login */
