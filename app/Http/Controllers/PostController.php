@@ -33,21 +33,14 @@ class PostController extends Controller
         $request->validate([
             'title' => 'required',
             'content' => 'required',
-            'file' => 'nullable|file|mimes:jpg,png,jpeg,pdf,docx'
         ]);
-
-        $filePath = null;
-        if ($request->hasFile('file')) {
-            $filePath = $request->file('file')->store('uploads', 'public');
-        }
 
         Post::create([
             'title' => $request->input('title'),
             'content' => $request->input('content'),
-            'file_path' => $filePath,
         ]);
 
-        return redirect()->route('home')->with('success', 'Post sukses');
+        return redirect()->route('home','adminhome')->with('success', 'Post sukses');
     }
 
 

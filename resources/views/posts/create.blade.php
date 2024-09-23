@@ -29,10 +29,6 @@
                             <label for="content" class="form-label">Konten</label>
                             <textarea name="content" class="form-control" rows="5" placeholder="Masukkan konten postingan" required></textarea>
                         </div>
-                        <div class="form-group mb-3">
-                            <label for="file" class="form-label">Lampirkan File (Opsional)</label>
-                            <input type="file" name="file" class="form-control-file">
-                        </div>
                         <button type="submit" class="btn btn-primary w-100">Publikasikan</button>
                     </form>
                 </div>
