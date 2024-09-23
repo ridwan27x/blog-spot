@@ -1,4 +1,3 @@
-adminhomr
 <!doctype html>
 <html lang="id">
 
@@ -8,19 +7,21 @@ adminhomr
     <title>home</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-         .sidebar {
+        .sidebar {
             height: 100vh;
             background-color: #007bff;
             color: white;
             padding-top: 20px;
-            position: fixed; 
-            top: 0; 
+            position: fixed;
+            top: 0;
             left: 0;
-            width: 15%; 
+            width: 15%;
         }
 
         .main-content {
             margin-left: 15%;
+            min-height: calc(100vh - 80px); /* Footer height compensation */
+            padding-bottom: 80px; /* Space for the footer */
         }
 
         .sidebar a {
@@ -32,6 +33,16 @@ adminhomr
 
         .sidebar a:hover {
             background-color: #0056b3;
+        }
+
+        /* Footer adjustments */
+        footer {
+            position: relative; /* Changed from fixed */
+            background-color: #343a40;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            width: 100%;
         }
     </style>
 </head>
@@ -61,7 +72,7 @@ adminhomr
                             <a class="nav-link active" href="{{ route('kategoriadmin') }}">Kategori</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="{{ route('laporanadmin') }}">pembayaran</a>
+                            <a class="nav-link active" href="{{ route('laporanadmin') }}">Pembayaran</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" href="{{ route('pembayaranadmin') }}">Laporan</a>
@@ -80,47 +91,43 @@ adminhomr
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 main-content">
                 <div class="container mt-4">
                     <div class="row">
+                        @foreach ($posts as $post)
                         <div class="col-md-4">
-                            <div class="card mb-4">
-                                <img class="card-img-top" src="https://media.neliti.com/media/organisations/logo-257-kemkominfo.png" alt="Card image cap">
+                            <div class="card mb-4 shadow-sm">
+                                <!-- Gambar jika ada -->
+                                @if ($post->file_path)
+                                <img class="card-img-top" src="{{ asset('storage/' . $post->file_path) }}" alt="Card image cap">
+                                @else
+                                <img class="card-img-top" src="https://via.placeholder.com/150" alt="No Image">
+                                @endif
+
                                 <div class="card-body">
-                                    <h5 class="card-title">5 cara menjaga keamanan akun anda</h5>
-                                    <p class="card-text">Cara membuat blog tidak sulit, bahkan orang yang tidak paham coding...</p>
-                                    <p class="text-muted">20 min read | May 12, 2024</p>
+                                    <a href="{{ route('posts.show', $post->id) }}" class="text-dark text-decoration-none">
+                                        <h5 class="card-title">{{ $post->title }}</h5>
+                                        <p class="card-text">{{ Str::limit($post->content, 100) }}</p> <!-- Konten ringkasan -->
+                                    </a>
+
+                                    <!-- Tanggal dan waktu diterbitkan -->
+                                    <p class="text-muted">{{ $post->created_at->format('d M Y') }} | {{ $post->created_at->format('H:i') }}</p>
+
+                                    <!-- Link download file jika ada -->
+                                    @if ($post->file_path)
+                                    <a href="{{ asset('storage/' . $post->file_path) }}" class="btn btn-info" target="_blank">Download File</a>
+                                    @endif
                                 </div>
                             </div>
                         </div>
-                        <!-- Card 2 -->
-                        <div class="col-md-4">
-                            <div class="card mb-4">
-                                <img class="card-img-top" src="https://tse2.mm.bing.net/th?id=OIP.gkJXDS-VjxY4qfZV56WtzgHaEn&pid=Api&P=0&h=180" alt="Card image cap">
-                                <div class="card-body">
-                                    <h5 class="card-title">cara menyelamatkan diri dari gempa</h5>
-                                    <p class="card-text">Tutorial lengkap cara membuat website menggunakan WordPress...</p>
-                                    <p class="text-muted">7 min read | Nov 21, 2024</p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Card 3 -->
-                        <div class="col-md-4">
-                            <div class="card mb-4">
-                                <img class="card-img-top" src="https://www.tagar.id/Asset/uploads2019/1567005153206-gedung-dpr-ri.jpg" alt="Card image cap">
-                                <div class="card-body">
-                                    <h5 class="card-title">cara menjadi anggota...</h5>
-                                    <p class="card-text">Peter Kambey sebagai brand ambassador terbaru Niagahoster...</p>
-                                    <p class="text-muted">4 min read | Dec 22, 2024</p>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
-
-                <!-- Footer -->
-                <footer class="text-center bg-dark py-2 w-100 position-fixed bottom-0 left-0 right-0">
-                    <p class="mb-5">Created by Iwan & Fajar © 2024</p>
-                    <p class="mt-3">All rights reserved.</p>
-                </footer>
             </main>
+
+
+            <!-- Footer -->
+            <footer>
+                <p class="mb-5">Created by Iwan & Fajar © 2024</p>
+                <p class="mt-3">All rights reserved.</p>
+            </footer>
         </div>
     </div>
 

@@ -7,12 +7,6 @@
     <div class="card shadow-sm mb-4">
         <div class="card-body">
             <p>{{ $post->content }}</p>
-
-            @if ($post->file_path)
-                <a href="{{ asset('storage/' . $post->file_path) }}" class="btn btn-info mt-3" target="_blank">
-                    <i class="bi bi-download"></i> Download File
-                </a>
-            @endif
         </div>
         <div class="card-footer text-muted">
             Diterbitkan pada {{ $post->created_at->format('d M Y H:i') }}
