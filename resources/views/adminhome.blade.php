@@ -116,7 +116,7 @@ adminhomr
                 </div>
 
                 <!-- Footer -->
-                <footer class="text-center bg-dark text-white py-1 mt-5">
+                <footer class="text-center bg-dark py-2 w-100 position-fixed bottom-0 left-0 right-0">
                     <p class="mb-5">Created by Iwan & Fajar © 2024</p>
                     <p class="mt-3">All rights reserved.</p>
                 </footer>
