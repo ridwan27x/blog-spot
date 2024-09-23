@@ -201,8 +201,12 @@
         <a href="#" class="d-flex align-items-center">
             <i class="bi bi-gear mr-2"></i> Setelan
         </a>
-        <a class="nav-link" href="#" id="logout-link">
-            <i class="bi bi-gear mr-2"></i> Logout
+        <a class="nav-link" href="{{ route('logout') }}"
+            onclick="event.preventDefault(); document.getElementById('logout-form').submit();" id="logout-link">
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+            <i class="bi bi-box-arrow-left mr-2"></i> Logout
         </a>
     </div>
     <div class="container">
