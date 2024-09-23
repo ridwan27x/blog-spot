@@ -156,7 +156,7 @@
 
 <!-- Sidebar -->
 <div class="sidebar" id="sidebar">
-    <a href="{{ route('#') }}" class="shadow p-3 bg-body-tertiary rounded-pill text-decoration-none d-flex align-items-center text-danger">
+    <a href="{{ route('posts.create') }}" class="shadow p-3 bg-body-tertiary rounded-pill text-decoration-none d-flex align-items-center text-danger">
         <i class="bi bi-plus mr-2"></i> Postingan baru
     </a>
     <a href="#" class="d-flex align-items-center">
