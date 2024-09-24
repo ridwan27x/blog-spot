@@ -237,18 +237,12 @@
                         <a href="{{ route('posts.show', $post->id) }}" class="text-dark text-decoration-none">
                             <h3>{{ $post->title }}</h3>
                             <p>{{ Str::limit($post->content, 100) }}</p>
-
-                            @if ($post->file_path)
-                                <p><a href="{{ asset('storage/' . $post->file_path) }}" target="_blank">Download
-                                        File</a></p>
-                            @endif
-
                             <small class="text-muted">Diterbitkan pada
                                 {{ $post->created_at->format('d M Y H:i') }}</small>
                         </a>
+                        <p class="text-info">Dibuat oleh: {{ optional($post->user)->name ?? 'Pengguna Tidak Dikenal' }}</p> 
                     </div>
                     <div class="col-4 d-flex justify-content-end align-items-center">
-                        <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-sm btn-primary mr-2">Edit</a>
                         <form action="{{ route('posts.destroy', $post->id) }}" method="POST" class="d-inline-block">
                             @csrf
                             @method('DELETE')

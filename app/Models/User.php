@@ -48,4 +48,11 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Role::class);
     }
+    use HasFactory;
+
+    // Relasi ke model Post
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
 }

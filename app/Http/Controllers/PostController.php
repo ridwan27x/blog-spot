@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class PostController extends Controller
 {
@@ -11,10 +14,10 @@ class PostController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-{
-    $posts = Post::latest()->get(); // Mengambil semua postingan terbaru
-    return view('posts.index', compact('posts')); // Kirim variabel $posts ke view
-}
+    {
+        $posts = Post::latest()->get(); // Mengambil semua postingan terbaru
+        return view('posts.index', compact('posts')); // Kirim variabel $posts ke view
+    }
 
 
     /**
@@ -29,19 +32,23 @@ class PostController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-{
-    $request->validate([
-        'title' => 'required',
-        'content' => 'required',
-    ]);
+    {
+        $request->validate([
+            'title' => 'required',
+            'content' => 'required',
+        ]);
 
-    Post::create([
-        'title' => $request->input('title'),
-        'content' => $request->input('content'),
-    ]);
+        // Simpan post dengan user_id
+        Post::create([
+            'title' => $request->input('title'),
+            'content' => $request->input('content'),
+           'user_id' => Auth::user()->id,
 
-    return redirect()->route('posts.index')->with('success', 'Post sukses ditambahkan'); // Redirect ke daftar postingan
-}
+
+        ]);
+
+        return redirect()->route('posts.index')->with('success', 'Post sukses ditambahkan');
+    }
 
 
 
@@ -54,14 +61,14 @@ class PostController extends Controller
         $post = Post::findOrFail($id); // Cari posting berdasarkan ID
         return view('posts.show', compact('post')); // Mengirimkan data posting ke view
     }
-    
+
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(Post $post)
     {
-        //
+        return view('posts.edit', compact('post'));
     }
 
     /**
@@ -69,7 +76,21 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        // Validasi input form
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+        ]);
+
+        // Update data post
+        $post->title = $request->input('title');
+        $post->content = $request->input('content');
+
+        // Simpan perubahan
+        $post->save();
+
+        // Redirect kembali ke halaman utama dengan pesan sukses
+        return redirect()->route('adminhome')->with('success', 'Post berhasil diperbarui.');
     }
 
     /**
