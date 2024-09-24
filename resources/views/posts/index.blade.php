@@ -6,17 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"> <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Bootstrap Icons -->
     <style>
         body {
             font-family: Arial, sans-serif;
+            padding-top: 70px;
+            /* Account for the fixed navbar height */
         }
 
         .navbar {
             background-color: #f7f7f7;
             border-bottom: 1px solid #ddd;
             padding: 10px 20px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
         }
 
         .navbar input[type="search"] {
@@ -34,6 +42,9 @@
             padding-top: 20px;
             border-right: 1px solid #ddd;
             transition: all 0.3s ease;
+            top: 70px;
+            /* Align the sidebar with the fixed navbar */
+            z-index: 999;
         }
 
         .sidebar.hide {
@@ -58,8 +69,6 @@
             margin-left: 260px;
             padding: 20px;
             transition: margin-left 0.3s ease;
-            position: relative;
-            /* Agar posisi ikon sampah dan share relatif */
         }
 
         .content.shrink {
@@ -96,7 +105,7 @@
             gap: 15px;
         }
 
-        /* Ikon sampah dan share */
+        /* Icons */
         .action-icons {
             position: absolute;
             right: 15px;
@@ -109,13 +118,13 @@
             opacity: 1;
         }
 
-        /* Sembunyikan username saat hover */
+        /* Hide username on hover */
         .post:hover .username {
             opacity: 0;
             transition: opacity 0.3s;
         }
 
-        /* Table Google Icon */
+        /* Google Table */
         .google-table {
             display: none;
             position: absolute;
@@ -151,18 +160,19 @@
 <body>
 
     <!-- Navbar -->
-    <div class="navbar d-flex justify-content-between align-items-center">
-        <div>
-            <i class="fas fa-bars" id="menu-toggle" style="cursor:pointer; font-size: 20px;"></i>
+    <nav class="navbar d-flex justify-content-between align-items-center">
+        <div class="ml-3">
+            <i class="fas fa-bars" id="menu-toggle" style="cursor:pointer; font-size: 30px"></i>
         </div>
         <div class="mx-auto position-relative">
             <i class="fas fa-search position-absolute" style="left: 25px; top: 50%; transform: translateY(-55%);"></i>
             <input type="search" placeholder="Telusuri postingan" class="ml-3 pl-5" style="width: 590px;">
         </div>
         <div class="dropdown d-flex align-items-center position-relative">
-            <i class="bi bi-google" style="font-size: 20px; margin-right: 10px; color: #4d4d4d;" id="googleDropdown" style="cursor:pointer;"></i>
+            <i class="bi bi-google" style="font-size: 20px; margin-right: 10px; color: #4d4d4d;" id="googleDropdown"
+                style="cursor:pointer;"></i>
             <img src="https://via.placeholder.com/30" alt="Profile Image" class="rounded-circle">
-            <!-- Tabel Google -->
+            <!-- Google Table -->
             <div class="google-table" id="googleTable">
                 <a href="https://www.google.com" target="_blank"><i class="bi bi-google"></i> Telusuri</a>
                 <a href="https://www.google.com/maps" target="_blank"><i class="bi bi-map"></i> Maps</a>
@@ -173,14 +183,15 @@
                 <a href="https://calendar.google.com" target="_blank"><i class="bi bi-calendar"></i> Kalender</a>
             </div>
         </div>
-    </div>
+    </nav>
 
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
-        <a href="{{ route('posts.create') }}" class="shadow p-3 bg-body-tertiary rounded-pill text-decoration-none d-flex align-items-center text-danger">
+        <a href="{{ route('posts.create') }}"
+            class="shadow p-3 bg-body-tertiary rounded-pill text-decoration-none d-flex align-items-center text-danger">
             <i class="bi bi-plus mr-2"></i> Postingan baru
         </a>
-        <a href="{{route('posts.index')}}" class="d-flex align-items-center">
+        <a href="{{ route('posts.index') }}" class="d-flex align-items-center">
             <i class="bi bi-card-list mr-2"></i> Postingan
         </a>
         <a href="#" class="d-flex align-items-center">
@@ -204,78 +215,89 @@
         <a class="nav-link" href="{{ route('logout') }}"
             onclick="event.preventDefault(); document.getElementById('logout-form').submit();" id="logout-link">
             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
+                @csrf
+            </form>
             <i class="bi bi-box-arrow-left mr-2"></i> Logout
         </a>
     </div>
-    <div class="container">
 
+    <!-- Content -->
+    <div class="content" id="content">
         @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
         @endif
 
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                @foreach ($posts as $post) 
-                <div class="post mb-4 p-4 bg-light shadow-sm rounded">
-                    <a href="{{ route('posts.show', $post->id) }}" class="text-dark text-decoration-none">
-                        <h3>{{ $post->title }}</h3>
-                        <p>{{ Str::limit($post->content, 100) }}</p>
-                        
-                        @if ($post->file_path)
-                        <p><a href="{{ asset('storage/' . $post->file_path) }}" target="_blank">Download File</a></p>
-                        @endif
-            
-                        <small class="text-muted">Diterbitkan pada {{ $post->created_at->format('d M Y H:i') }}</small>
-                    </a>
+        <div class="container">
+            @foreach ($posts as $post)
+                <div class="row mb-4 p-4 bg-light shadow-sm rounded position-relative post">
+                    <div class="col-8">
+                        <!-- Post Content -->
+                        <a href="{{ route('posts.show', $post->id) }}" class="text-dark text-decoration-none">
+                            <h3>{{ $post->title }}</h3>
+                            <p>{{ Str::limit($post->content, 100) }}</p>
+
+                            @if ($post->file_path)
+                                <p><a href="{{ asset('storage/' . $post->file_path) }}" target="_blank">Download
+                                        File</a></p>
+                            @endif
+
+                            <small class="text-muted">Diterbitkan pada
+                                {{ $post->created_at->format('d M Y H:i') }}</small>
+                        </a>
+                    </div>
+                    <div class="col-4 d-flex justify-content-end align-items-center">
+                        <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-sm btn-primary mr-2">Edit</a>
+                        <form action="{{ route('posts.destroy', $post->id) }}" method="POST" class="d-inline-block">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                        </form>
+                    </div>
+                                        
+                    
                 </div>
             @endforeach
-            
-            </div>
         </div>
-        
+    </div>
 
+    <script>
+        document.getElementById('logout-link').addEventListener('click', function(event) {
+            event.preventDefault();
+            document.getElementById('logout-form').submit();
+        });
 
-        <script>
-            document.getElementById('logout-link').addEventListener('click', function(event) {
-                event.preventDefault();
-                document.getElementById('logout-form').submit();
-            });
-        </script>
-        <script>
-            // JavaScript untuk animasi buka/tutup sidebar
-            document.getElementById("menu-toggle").addEventListener("click", function() {
-                var sidebar = document.getElementById("sidebar");
-                var content = document.getElementById("content");
+        // JavaScript for opening/closing sidebar
+        document.getElementById("menu-toggle").addEventListener("click", function() {
+            var sidebar = document.getElementById("sidebar");
+            var content = document.getElementById("content");
 
-                sidebar.classList.toggle("hide");
-                content.classList.toggle("shrink");
-            });
+            sidebar.classList.toggle("hide");
+            content.classList.toggle("shrink");
+        });
 
-            // JavaScript untuk menampilkan dan menyembunyikan tabel Google
-            document.getElementById("googleDropdown").addEventListener("click", function() {
+        // Show/Hide Google Table
+        document.getElementById("googleDropdown").addEventListener("click", function() {
+            var googleTable = document.getElementById("googleTable");
+            googleTable.style.display = googleTable.style.display === "block" ? "none" : "block";
+        });
+
+        // Close Google Table when clicking outside
+        window.onclick = function(event) {
+            if (!event.target.matches('#googleDropdown')) {
                 var googleTable = document.getElementById("googleTable");
-                googleTable.style.display = googleTable.style.display === "block" ? "none" : "block";
-            });
-
-            // Menutup tabel saat klik di luar elemen dropdown
-            window.onclick = function(event) {
-                if (!event.target.matches('#googleDropdown')) {
-                    var googleTable = document.getElementById("googleTable");
-                    if (googleTable.style.display === "block") {
-                        googleTable.style.display = "none";
-                    }
+                if (googleTable.style.display === "block") {
+                    googleTable.style.display = "none";
                 }
             }
-        </script>
+        }
+    </script>
 
-        <!-- Bootstrap JS (untuk dropdown) -->
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </body>
 

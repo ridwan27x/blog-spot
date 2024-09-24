@@ -11,10 +11,10 @@ class PostController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        $post = Post::latest()->first(); // Menampilkan postingan terbaru
-        return view('posts.index', compact('post'));
-    }
+{
+    $posts = Post::latest()->get(); // Mengambil semua postingan terbaru
+    return view('posts.index', compact('posts')); // Kirim variabel $posts ke view
+}
 
 
     /**
@@ -29,19 +29,20 @@ class PostController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        $request->validate([
-            'title' => 'required',
-            'content' => 'required',
-        ]);
+{
+    $request->validate([
+        'title' => 'required',
+        'content' => 'required',
+    ]);
 
-        Post::create([
-            'title' => $request->input('title'),
-            'content' => $request->input('content'),
-        ]);
+    Post::create([
+        'title' => $request->input('title'),
+        'content' => $request->input('content'),
+    ]);
 
-        return redirect()->route('home','adminhome')->with('success', 'Post sukses');
-    }
+    return redirect()->route('posts.index')->with('success', 'Post sukses ditambahkan'); // Redirect ke daftar postingan
+}
+
 
 
 
@@ -76,6 +77,11 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        if ($post) {
+            $post->delete();
+            return redirect()->route('posts.index')->with('success', 'Post deleted successfully');
+        }
+
+        return redirect()->route('posts.index')->with('error', 'Post not found');
     }
 }
