@@ -224,11 +224,6 @@
                     <a href="{{ route('posts.show', $post->id) }}" class="text-dark text-decoration-none">
                         <h3>{{ $post->title }}</h3>
                         <p>{{ Str::limit($post->content, 100) }}</p>
-                        
-                        @if ($post->file_path)
-                        <p><a href="{{ asset('storage/' . $post->file_path) }}" target="_blank">Download File</a></p>
-                        @endif
-            
                         <small class="text-muted">Diterbitkan pada {{ $post->created_at->format('d M Y H:i') }}</small>
                     </a>
                 </div>

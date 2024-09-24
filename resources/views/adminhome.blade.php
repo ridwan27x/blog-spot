@@ -20,8 +20,10 @@
 
         .main-content {
             margin-left: 15%;
-            min-height: calc(100vh - 80px); /* Footer height compensation */
-            padding-bottom: 80px; /* Space for the footer */
+            min-height: calc(100vh - 80px);
+            /* Footer height compensation */
+            padding-bottom: 80px;
+            /* Space for the footer */
         }
 
         .sidebar a {
@@ -37,7 +39,8 @@
 
         /* Footer adjustments */
         footer {
-            position: relative; /* Changed from fixed */
+            position: relative;
+            /* Changed from fixed */
             background-color: #343a40;
             color: white;
             text-align: center;
@@ -86,22 +89,14 @@
                     </form>
                 </div>
             </nav>
-
-            <!-- Main Content -->
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 main-content">
                 <div class="container mt-4">
                     <div class="row">
                         @foreach ($posts as $post)
                         <div class="col-md-4">
                             <div class="card mb-4 shadow-sm">
-                                <!-- Gambar jika ada -->
-                                @if ($post->file_path)
-                                <img class="card-img-top" src="{{ asset('storage/' . $post->file_path) }}" alt="Card image cap">
-                                @else
-                                <img class="card-img-top" src="https://via.placeholder.com/150" alt="No Image">
-                                @endif
-
                                 <div class="card-body">
+                                    <!-- Post Content -->
                                     <a href="{{ route('posts.show', $post->id) }}" class="text-dark text-decoration-none">
                                         <h5 class="card-title">{{ $post->title }}</h5>
                                         <p class="card-text">{{ Str::limit($post->content, 100) }}</p> <!-- Konten ringkasan -->
@@ -110,10 +105,18 @@
                                     <!-- Tanggal dan waktu diterbitkan -->
                                     <p class="text-muted">{{ $post->created_at->format('d M Y') }} | {{ $post->created_at->format('H:i') }}</p>
 
-                                    <!-- Link download file jika ada -->
-                                    @if ($post->file_path)
-                                    <a href="{{ asset('storage/' . $post->file_path) }}" class="btn btn-info" target="_blank">Download File</a>
-                                    @endif
+                                    <!-- Nama Pembuat Postingan -->
+                                    <p class="text-info">Dibuat oleh: {{ optional($post->user)->name ?? 'Pengguna Tidak Dikenal' }}</p> <!-- Menangani jika user tidak ada -->
+
+                                    <!-- Edit & Delete Buttons -->
+                                    <div class="d-flex justify-content-end">
+                                        <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-sm btn-primary">Edit</a>
+                                        <form action="{{ route('posts.destroy', $post->id) }}" method="POST" class="d-inline-block">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -121,9 +124,6 @@
                     </div>
                 </div>
             </main>
-
-
-            <!-- Footer -->
             <footer>
                 <p class="mb-5">Created by Iwan & Fajar © 2024</p>
                 <p class="mt-3">All rights reserved.</p>

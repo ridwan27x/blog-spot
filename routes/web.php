@@ -40,6 +40,9 @@ Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
 Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show');
 Route::resource('posts', PostController::class);
 Route::delete('/posts/{id}', [PostController::class, 'destroy'])->name('posts.destroy');
+Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
+Route::put('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
+
 
 
 
