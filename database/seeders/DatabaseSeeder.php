@@ -28,11 +28,11 @@ class DatabaseSeeder extends Seeder
             'user_id' => $user_admin->id,
             'role_id' => $role_admin->id,
         ]);
-        // // User::factory(10)->create();
-
-        // User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        
+        User::create([
+            'name' => 'nam',
+            'email' => 'nam@gmail.com',
+            'password' => bcrypt('nam12345678'),            
+        ]);
     }
 }
