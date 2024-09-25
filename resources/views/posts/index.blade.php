@@ -18,7 +18,7 @@
         }
 
         .navbar {
-            background-color: #f7f7f7;
+            background-color: #f19800;
             border-bottom: 1px solid #ddd;
             padding: 10px 20px;
             position: fixed;
@@ -169,9 +169,10 @@
             <input type="search" placeholder="Telusuri postingan" class="ml-3 pl-5" style="width: 590px;">
         </div>
         <div class="dropdown d-flex align-items-center position-relative">
-            <i class="bi bi-google" style="font-size: 20px; margin-right: 10px; color: #4d4d4d;" id="googleDropdown"
-                style="cursor:pointer;"></i>
-            <img src="https://via.placeholder.com/30" alt="Profile Image" class="rounded-circle">
+            <i class="bi bi-grid-3x3-gap" style="font-size: 20px; margin-right: 10px; color: #4d4d4d;"
+                id="googleDropdown" style="cursor:pointer;"></i>
+            <img src="https://i.pinimg.com/736x/83/e0/3f/83e03f295542c38569adb4ec985b2bc6.jpg" alt="Profile Image"
+                class="rounded-circle" style="width: 30px; height: 30px;">
             <!-- Google Table -->
             <div class="google-table" id="googleTable">
                 <a href="https://www.google.com" target="_blank"><i class="bi bi-google"></i> Telusuri</a>
@@ -188,7 +189,7 @@
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
         <a href="{{ route('posts.create') }}"
-            class="shadow p-3 bg-body-tertiary rounded-pill text-decoration-none d-flex align-items-center text-danger">
+            class="shadow p-3 bg-body-tertiary rounded-pill text-decoration-none d-flex align-items-center text-warning">
             <i class="bi bi-plus mr-2"></i> Postingan baru
         </a>
         <a href="{{ route('posts.index') }}" class="d-flex align-items-center">
@@ -224,8 +225,11 @@
     <!-- Content -->
     <div class="content" id="content">
         @if (session('success'))
-            <div class="alert alert-success">
+            <div class="alert alert-success alert-dismissible fade show" role="alert" id="success-alert">
                 {{ session('success') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
         @endif
 
@@ -240,22 +244,50 @@
                             <small class="text-muted">Diterbitkan pada
                                 {{ $post->created_at->format('d M Y H:i') }}</small>
                         </a>
-                        <p class="text-info">Dibuat oleh: {{ optional($post->user)->name ?? 'Pengguna Tidak Dikenal' }}</p> 
+                        <p class="text-info small">Dibuat oleh:
+                            {{ optional($post->user)->name ?? 'Pengguna Tidak Dikenal' }}</p>
                     </div>
                     <div class="col-4 d-flex justify-content-end align-items-center">
-                        <form action="{{ route('posts.destroy', $post->id) }}" method="POST" class="d-inline-block">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                        </form>
-                    </div>
-                                        
+                        <!-- Tombol Delete yang memicu modal -->
+                        <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteModal-{{ $post->id }}">
+                            Delete
+                        </button>
                     
+                        <!-- Modal -->
+                        <div class="modal fade" id="deleteModal-{{ $post->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="deleteModalLabel">Konfirmasi Penghapusan</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Apakah Anda yakin ingin menghapus postingan ini?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                        <form action="{{ route('posts.destroy', $post->id) }}" method="POST" class="d-inline-block">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger">Hapus</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+
+
                 </div>
             @endforeach
         </div>
     </div>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+    </script>
     <script>
         document.getElementById('logout-link').addEventListener('click', function(event) {
             event.preventDefault();
@@ -286,6 +318,10 @@
                 }
             }
         }
+
+        setTimeout(function() {
+        $('#success-alert').alert('close');
+    }, 3000);
     </script>
 
     <!-- Bootstrap JS -->
