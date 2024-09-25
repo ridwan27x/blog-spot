@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
 
 // Route untuk halaman home setelah login
@@ -45,6 +46,7 @@ Route::put('/posts/{post}', [PostController::class, 'update'])->name('posts.upda
 
 
 
-
+// komentar
+Route::post('/posts/{post}/comments', [CommentController::class, 'storeComment'])->name('comments.store');
 
 
