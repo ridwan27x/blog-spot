@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\UserController;
 
 // Route untuk halaman home setelah login
 Route::get('/', function() {
@@ -48,5 +49,15 @@ Route::put('/posts/{post}', [PostController::class, 'update'])->name('posts.upda
 
 // komentar
 Route::post('/posts/{post}/comments', [CommentController::class, 'storeComment'])->name('comments.store');
+
+//users
+Route::resource('users', UserController::class);
+
+Route::get('/users', [UserController::class, 'index'])->name('users.index'); 
+Route::get('/users/create', [UserController::class, 'create'])->name('users.create'); 
+Route::post('/users', [UserController::class, 'store'])->name('users.store'); 
+Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit'); 
+Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update'); 
+Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy'); 
 
 
