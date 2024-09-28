@@ -7,15 +7,15 @@
     <title>Admin Dashboard</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-         .sidebar {
+        .sidebar {
             height: 100vh;
             background-color: #007bff;
             color: white;
             padding-top: 20px;
-            position: fixed; 
-            top: 0; 
+            position: fixed;
+            top: 0;
             left: 0;
-            width: 15%; 
+            width: 15%;
         }
 
         .main-content {
@@ -58,13 +58,13 @@
                             <a class="nav-link" href="#">Users</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link active" href="{{ route('kategoriadmin') }}">Kategori</a>
+                            <a class="nav-link active" href="{{ route('kategoriadmin') }}">Kategori</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link active" href="{{ route('laporanadmin') }}">pembayaran</a>
+                            <a class="nav-link active" href="{{ route('laporanadmin') }}">pembayaran</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link active" href="{{ route('pembayaranadmin') }}">Laporan</a>
+                            <a class="nav-link active" href="{{ route('pembayaranadmin') }}">Laporan</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#" id="logout-link">Logout</a>
@@ -76,11 +76,11 @@
                     </form>
                 </div>
             </nav>
-
-            <!-- Konten Utama -->
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
                 <h1 class="h2 mt-4">Data User</h1>
-                <button class="btn btn-primary mb-3">Tambah</button>
+                <a href="{{ route('users.create') }}" class="btn btn-primary mb-3">Tambah User</a> <!-- Link ke form tambah user -->
+
+                <!-- Tabel Data Pengguna -->
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -94,33 +94,30 @@
                         @foreach ($users as $user)
                         <tr>
                             <td>{{ $user->name }}</td>
-                            <td>{{ $user->email}}</td>
-                            <td>{{ $user->password }}</td>
+                            <td>{{ $user->email }}</td>
+                            <td>*****</td> <!-- Tidak menampilkan password asli -->
                             <td>
-                                <a href="#" class="btn btn-sm btn-info">Edit</a>
-                                <a href="#" class="btn btn-sm btn-success">info</a>
-                                <a href="#" class="btn btn-sm btn-danger">Delete</a>
+                                <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-info">Edit</a>
+                                <a href="{{ route('users.show', $user->id) }}" class="btn btn-sm btn-success">Info</a>
+
+                                <!-- Form untuk menghapus pengguna -->
+                                <form action="{{ route('users.destroy', $user->id) }}" method="POST" class="d-inline-block">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus user ini?')">Delete</button>
+                                </form>
                             </td>
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
-                <!-- Paginasi -->
-                <nav aria-label="Page navigation">
-                    <ul class="pagination justify-content-center">
-                        <li class="page-item"><a class="page-link" href="#">«</a></li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">»</a></li>
-                    </ul>
-                </nav>
                 <!-- Footer -->
-                <footer class="text-center bg-dark text-white py-1 mt-5">
-                    <p class="mb-5">Created by Iwan & Fajar © 2024</p>
-                    <p class="mt-3">All rights reserved.</p>
+                <footer class="text-center bg-dark text-white py-2 mt-5">
+                    <p class="mb-0">Created by Iwan & Fajar © 2024</p>
+                    <p class="mt-1">All rights reserved.</p>
                 </footer>
             </main>
+
         </div>
     </div>
     <script>
