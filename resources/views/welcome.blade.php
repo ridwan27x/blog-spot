@@ -20,7 +20,7 @@
         }
 
         body {
-            background: url('https://lh3.googleusercontent.com/-E4OrCZThRvY/W_6rnBmuoPI/AAAAAAAAA5Q/4JwyT-fdsgkX4HH5k8ba7JsnkmYpUguEQCLcBGAs/s1600/background.jpg&quot;') no-repeat center center/cover;
+            background: url('https://asset.kompas.com/crops/vD7Tp-6Q54HVg9_OLYA3EsqHy3g=/0x120:821x667/750x500/data/photo/2021/10/30/617cc0ced4906.jpg') no-repeat center center/cover;
             color: white;
             height: 100vh;
             display: flex;
@@ -66,6 +66,15 @@
             text-align: center;
         }
 
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.6); /* Warna latar transparan untuk konten */
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
         .content h1 {
             font-size: 4em;
             margin-bottom: 20px;
@@ -83,34 +92,28 @@
         }
 
         .btn-container {
-            margin-top: 30px;
+            margin-top: 20px;
         }
 
-        .btn {
-            padding: 10px 20px;
-            margin: 0 10px;
-            border: none;
-            font-size: 1em;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary {
-            background: #333;
+        /* Tombol */
+        .btn-create-blog {
+            background-color: #f68b1f;
             color: #fff;
+            padding:7px 20px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
         }
 
-        .btn-primary:hover {
-            background: #555;
+        .btn-create-blog:hover {
+            background-color: #e07a16;
         }
 
-        .btn-secondary {
-            background: #fff;
-            color: #333;
-        }
-
-        .btn-secondary:hover {
-            background: #ddd;
+        .btn-create-blog:active {
+            background-color: #cc6e12;
         }
     </style>
 </head>
@@ -131,9 +134,16 @@
     </nav>
 
     <div class="content">
-        <h1>Welcome to blogwan!</h1>
-        <h2><span>buat karya dari tulisanmu</span></h2>
-        <div class="btn-container">
+        <div class="container">
+            <h1>Welcome to blogme!</h1>
+
+            <!-- Tombol untuk Create Blog -->
+            <div class="btn-container">
+                <a href="{{ url('/create-blog') }}" class="btn btn-create-blog">CREATE YOUR BLOG</a>
+            </div>
+
+            <h2 style="margin-top: 20px;"><span>buat karya dari tulisanmu</span></h2>
+
         </div>
     </div>
 </body>
