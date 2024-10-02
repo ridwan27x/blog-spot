@@ -246,6 +246,7 @@
                         </a>
                         <p class="text-info small">Dibuat oleh:
                             {{ optional($post->user)->name ?? 'Pengguna Tidak Dikenal' }}</p>
+                            <a href="{{ route('reports.create', $post->id) }}" class="btn btn-danger">Laporkan</a>
                     </div>
                     <div class="col-4 d-flex justify-content-end align-items-center">
                         <!-- Tombol Delete yang memicu modal -->

@@ -6,13 +6,14 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ReportController;
 
-// Route untuk halaman home setelah login
+
 Route::get('/', function() {
     return view('welcome');
 });
 
-// Route untuk login, register, reset password, dll.
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -60,4 +61,10 @@ Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.e
 Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update'); 
 Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy'); 
 
+//report
+Route::get('/posts/{post}/report', [ReportController::class, 'create'])->name('reports.create');
+Route::get('/admin/laporan', [AdminController::class, 'laporanAdmin'])->name('laporanadmin');
+Route::post('/posts/{post}/report', [ReportController::class, 'store'])->name('reports.store');
+Route::patch('/admin/reports/{report}/approve', [AdminController::class, 'approveReport'])->name('admin.report.approve');
+Route::patch('/admin/reports/{report}/reject', [AdminController::class, 'rejectReport'])->name('admin.report.reject');
 

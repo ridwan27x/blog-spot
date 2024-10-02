@@ -55,16 +55,16 @@
                             <a class="nav-link active" href="{{ route('adminhome') }}">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Users</a>
+                            <a class="nav-link" href="admin">Users</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" href="{{ route('kategoriadmin') }}">Kategori</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="{{ route('laporanadmin') }}">pembayaran</a>
+                            <a class="nav-link active" href="{{ route('pembayaranadmin') }}">pembayaran</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="{{ route('pembayaranadmin') }}">Laporan</a>
+                            <a class="nav-link active" href="{{ route('laporanadmin') }}">Laporan</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#" id="logout-link">Logout</a>
