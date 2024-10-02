@@ -125,7 +125,7 @@
                 </div>
             </main>
             <footer>
-                <p class="mb-5">Created by Iwan & Fajar © 2024</p>
+                <p class="mb-5">Created by Ridwan & Fajar © 2024</p>
                 <p class="mt-3">All rights reserved.</p>
             </footer>
         </div>
