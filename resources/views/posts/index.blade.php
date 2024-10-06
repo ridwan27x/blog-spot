@@ -235,7 +235,7 @@
 
         <div class="container">
             @foreach ($posts as $post)
-                <div class="row mb-4 p-4 bg-light shadow-sm rounded position-relative post">
+                <div class="row mb-2 p-2 bg-light shadow-sm rounded position-relative post">
                     <div class="col-8">
                         <!-- Post Content -->
                         <a href="{{ route('posts.show', $post->id) }}" class="text-dark text-decoration-none">
@@ -253,6 +253,11 @@
                         <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteModal-{{ $post->id }}">
                             Delete
                         </button>
+                        <div class="col-4 d-flex justify-content-end align-items-center">
+                            <!-- Tombol Bookmark -->
+                            <i class="bi bi-bookmark" id="bookmark-{{ $post->id }}" style="font-size: 24px; cursor: pointer;"
+                                onclick="toggleBookmark({{ $post->id }})"></i>
+                        </div>
                     
                         <!-- Modal -->
                         <div class="modal fade" id="deleteModal-{{ $post->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
@@ -329,6 +334,64 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        // Fungsi untuk menandai postingan ke daftar bacaan
+        function toggleBookmark(postId) {
+            var bookmarkIcon = document.getElementById('bookmark-' + postId);
+    
+            // Ubah warna icon menjadi hitam jika diklik (menandakan sudah di-bookmark)
+            if (bookmarkIcon.classList.contains('bi-bookmark')) {
+                bookmarkIcon.classList.remove('bi-bookmark');
+                bookmarkIcon.classList.add('bi-bookmark-fill');
+                bookmarkIcon.style.color = 'black';
+    
+                // Simpan postingan ke daftar bacaan
+                saveToReadingList(postId);
+            } else {
+                // Kembalikan ke ikon default jika di-klik ulang
+                bookmarkIcon.classList.remove('bi-bookmark-fill');
+                bookmarkIcon.classList.add('bi-bookmark');
+                bookmarkIcon.style.color = '';
+    
+                // Hapus postingan dari daftar bacaan
+                removeFromReadingList(postId);
+            }
+        }
+    
+        // Simpan postingan ke daftar bacaan (gunakan localStorage atau bisa gunakan API backend)
+        function saveToReadingList(postId) {
+            let readingList = JSON.parse(localStorage.getItem('readingList')) || [];
+            if (!readingList.includes(postId)) {
+                readingList.push(postId);
+                localStorage.setItem('readingList', JSON.stringify(readingList));
+            }
+        }
+    
+        // Hapus postingan dari daftar bacaan
+        function removeFromReadingList(postId) {
+            let readingList = JSON.parse(localStorage.getItem('readingList')) || [];
+            const index = readingList.indexOf(postId);
+            if (index > -1) {
+                readingList.splice(index, 1);
+                localStorage.setItem('readingList', JSON.stringify(readingList));
+            }
+        }
+    
+        // Saat halaman dimuat, periksa apakah postingan sudah ada di daftar bacaan
+        document.addEventListener('DOMContentLoaded', function() {
+            let readingList = JSON.parse(localStorage.getItem('readingList')) || [];
+            readingList.forEach(function(postId) {
+                var bookmarkIcon = document.getElementById('bookmark-' + postId);
+                if (bookmarkIcon) {
+                    bookmarkIcon.classList.remove('bi-bookmark');
+                    bookmarkIcon.classList.add('bi-bookmark-fill');
+                    bookmarkIcon.style.color = 'black';
+                }
+            });
+        });
+    </script>
+    
 
 </body>
 
